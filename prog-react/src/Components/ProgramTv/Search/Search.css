@@ -1,0 +1,72 @@
+.list-style-none {
+    list-style: none;
+}
+
+#search-results-box {
+    z-index: 1;
+    position: absolute;
+    background-color: #fff;
+    overflow-y: scroll;
+    max-height: 75vh;
+}
+
+#search-results-box[hidden] {
+    display: none;
+}
+
+#search-results-box:not([hidden]), #search-input:focus {
+    min-width: 50vw;
+}
+
+#search-results-box, #search-input {
+    min-width: 15vw;
+    width: 20vw;
+}
+
+#search-input {
+    border: none;
+    box-shadow: 0 -1px 0 0 #444 inset;
+}
+
+#search-input:focus {
+    box-shadow: 0 -2px 0 0 red inset;
+}
+
+#search-input:focus {
+    outline: none;
+}
+
+#search-results-box, #search-input {
+    transition: all .4s;
+}
+
+#search-input::placeholder {
+    transition: all .2s;
+}
+
+#search-input:focus::placeholder {
+    transform: translateY(-7px);
+    font-size: 12px;
+    font-weight: bolder;
+    color: rgba(255, 0, 0, .3);
+}
+
+
+.search-result {
+    height: 60px;
+    padding: 2px 2px 0 0;
+    cursor: pointer;
+}
+
+.search-result.audition-search-result {
+    height: 90px;
+}
+
+.search-result:hover {
+    background-color: #ddd;
+}
+
+#search-result-img {
+    max-width: 58px;
+    max-height: 36px;
+}

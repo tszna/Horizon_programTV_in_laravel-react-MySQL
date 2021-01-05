@@ -1,0 +1,17 @@
+.bottom-0 {
+    bottom: 0;
+}
+
+.audition-details {
+    transition: min-height .2s;
+    min-height: 20vh;
+    background-color: red;
+}
+
+.bg-unset {
+    background: unset;
+}
+
+.roll-out {
+    max-height: 0px;
+}
