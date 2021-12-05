@@ -1,0 +1,60 @@
+services:
+  program-tv-nginx:
+   image: nginx:alpine
+   container_name: program-tv-nginx
+   ports:
+     - 80:80
+     - 443:443
+   volumes:
+     - ./nginx.conf:/etc/nginx/conf.d/default.conf
+     - ./prog-laravel:/var/www/html
+   networks:
+     - program-tv-network
+
+  program-tv-php:
+    build:
+      dockerfile: Dockerfile
+      context: ./prog-laravel
+    container_name: program-tv-php
+    volumes:
+      - ./prog-laravel:/var/www/html/
+    networks:
+      - program-tv-network
+
+  program-tv-mysql:
+    image: mysql:8.0.26
+    container_name: program-tv-mysql
+    environment:
+      MYSQL_DATABASE: prog
+      MYSQL_USER: prog
+      MYSQL_PASSWORD: prog
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - program-tv-network
+
+  program-tv-phpmyadmin:
+    image: phpmyadmin
+    container_name: program-tv-phpmyadmin
+    environment:
+      PMA_HOST: program-tv-mysql
+      PMA_USER: root
+      PMA_PASSWORD: ""
+    ports:
+      - 7080:80
+    networks:
+      - program-tv-network
+
+  program-tv-node:
+    build: ./prog-react
+    container_name: program-tv-node
+    volumes:
+      - ./prog-react:/usr/src/app
+    ports:
+      - '3001:3000'
+    command: bash -c "npm install && react-scripts start --host 0.0.0.0"
+
+networks:
+  program-tv-network:
+    driver: "bridge"
